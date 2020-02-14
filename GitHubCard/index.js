@@ -123,11 +123,7 @@ function makeCard(data) {
     cfollowing.innerHTML = `Following: ${data.following}`;
     //Link styling
     cpA.style.textDecoration = "none";
-
-
     // New way
-
-
     if (document.getElementById("graphCheck").checked == true) {
         card.appendChild(calendar);
         GitHubCalendar(calendar, `${data.login}`, {
