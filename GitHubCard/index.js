@@ -87,6 +87,7 @@ function searchUsr(gitUser) {
 }
 
 function makeCard(data) {
+    //Declaration
     const card = document.createElement("div");
     const cpPic = document.createElement("img");
     const cInfo = document.createElement("div");
@@ -98,20 +99,21 @@ function makeCard(data) {
     const cfollowers = document.createElement("p");
     const cfollowing = document.createElement("p");
     const cbio = document.createElement("p");
-    const graph = document.createElement("img");
+    const calendar = document.createElement("div");
     //Class assignation
     card.classList.add("card");
     cInfo.classList.add("card-info");
     cuserName.classList.add("username");
     cName.classList.add("name");
-    graph.classList.add("graph");
+    calendar.classList.add("calendar");
     //appending
     cProf.append(cpA);
-    cInfo.append(cName, cuserName, cloc, cProf, cfollowers, cfollowing, cbio);
+    cInfo.append(cName, cuserName, cloc, cfollowers, cfollowing, cbio, cProf);
     card.append(cpPic, cInfo);
+
     //Data assignation
     cpA.href = data.html_url;
-    cpA.innerHTML = data.html_url;
+    cpA.innerHTML = "Full profile &#10148;";
     cpPic.src = data.avatar_url;
     cName.textContent = data.name;
     cuserName.textContent = data.login;
@@ -119,11 +121,18 @@ function makeCard(data) {
     cbio.textContent = data.bio;
     cfollowers.innerHTML = `Followers: ${data.followers}`;
     cfollowing.innerHTML = `Following: ${data.following}`;
+    //Link styling
+    cpA.style.textDecoration = "none";
+
+
+    // New way
+
 
     if (document.getElementById("graphCheck").checked == true) {
-        graph.src = `http://ghchart.rshah.org/${data.login}`;
-        card.append(graph);
+        card.appendChild(calendar);
+        GitHubCalendar(calendar, `${data.login}`, {
+            responsive: true
+        });
     }
-
     return card;
 }

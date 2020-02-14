@@ -220,7 +220,13 @@ body {
 
 /* Graph styling */
 
-.card .graph {
+
+/* .card .graph {
+    margin-top: 2%;
+    width: 100%
+} */
+
+.card .calendar {
     margin-top: 2%;
     width: 100%
 }
