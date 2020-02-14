@@ -45,7 +45,6 @@ const followersArray = [];
 </div>
 
 */
-
 /* List of LS Instructors Github username's: 
   tetondan
   dustinmyers
@@ -53,3 +52,62 @@ const followersArray = [];
   luishrd
   bigknell
 */
+const card = document.querySelectorAll(".cards")[0];
+
+let users = [
+    "MrR3set",
+    "tetondan",
+    "dustinmyers",
+    "justsml",
+    "luishrd",
+    "bigknell"
+]
+
+users.forEach(elem => {
+    axios.get(`https://api.github.com/users/${elem}`).then(response => {
+        card.append(makeCard(response.data));
+    }).catch(err => { console.log(`${err}`) });
+})
+
+
+
+
+
+
+function makeCard(data) {
+    const card = document.createElement("div");
+    const cpPic = document.createElement("img");
+    const cInfo = document.createElement("div");
+    const cName = document.createElement("h3");
+    const cuserName = document.createElement("p");
+    const cloc = document.createElement("p");
+    const cProf = document.createElement("p");
+    const cpA = document.createElement("a");
+    const cfollowers = document.createElement("p");
+    const cfollowing = document.createElement("p");
+    const cbio = document.createElement("p");
+    //Class assignation
+    card.classList.add("card");
+    cInfo.classList.add("card-info");
+    cuserName.classList.add("username");
+    cName.classList.add("name");
+
+    //appending
+    cProf.append(cpA);
+    cInfo.append(cName, cuserName, cloc, cProf, cfollowers, cfollowing, cbio);
+    card.append(cpPic, cInfo);
+
+    cpA.href = data.url;
+    cpA.innerHTML = data.url;
+    cpPic.src = data.avatar_url;
+    cName.textContent = data.name;
+    cuserName.textContent = data.login;
+    cloc.textContent = data.location;
+    cbio.textContent = data.bio;
+    cfollowers.innerHTML = `Followers: ${data.followers}`;
+    cfollowing.innerHTML = `Following: ${data.following}`;
+
+    //data assign
+    console.log(card);
+    return card;
+}
