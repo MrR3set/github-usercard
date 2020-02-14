@@ -53,19 +53,44 @@ let followersArray = [];
 */
 const card = document.querySelectorAll(".cards")[0];
 
-//initial
-axios.get(`https://api.github.com/users/MrR3set`).then(response => {
-    card.append(makeCard(response.data));
-}).catch(err => { console.log(`${err}`) });
+let gitUser = "";
 
 
-// axios.get(`https://api.github.com/users/MrR3set/followers`).then(response => {
-//     response.data.forEach(elem => {
-//         axios.get(`https://api.github.com/users/${elem.login}`).then(response => {
-//             card.append(makeCard(response.data));
-//         }).catch(err => { console.log(`${err}`) });
-//     })
-// }).catch(err => { console.log(`${err}`) });
+const sForm = document.getElementsByClassName("searchForm")[0];
+
+document.getElementById("searchBtn").addEventListener("click", () => {
+    gitUser = document.getElementById("searchBar").value;
+    searchUsr(gitUser);
+    while (card.firstChild) {
+        card.removeChild(card.firstChild);
+    }
+})
+
+
+// initial
+function searchUsr(gitUser) {
+    axios.get(`https://api.github.com/users/${gitUser}`).then(response => {
+        card.append(makeCard(response.data));
+    }).catch(err => { console.log(`${err}`) });
+
+    if (document.getElementById("followersCheck").checked == true) {
+        axios.get(`https://api.github.com/users/${gitUser}/followers`).then(response => {
+            response.data.forEach(elem => {
+                axios.get(`https://api.github.com/users/${elem.login}`).then(response => {
+                    card.append(makeCard(response.data));
+                }).catch(err => { console.log(`${err}`) });
+            })
+        }).catch(err => { console.log(`${err}`) });
+
+    }
+
+
+
+
+}
+
+
+
 
 
 

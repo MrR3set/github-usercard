@@ -151,7 +151,7 @@ html {
 }
 
 body {
-    background: linear-gradient(141deg, #9fb8ad 0%, #1fc8db 51%, #2cb5e8 75%);
+    background: linear-gradient(141deg, #402255 0%, #7f43ce 51%, #5c20a0 75%);
 }
 
 .container {
@@ -214,4 +214,96 @@ body {
     font-size: 1.8rem;
     font-style: italic;
     margin: 3px 0 10px;
+}
+
+
+/* Search form styling */
+
+@import url('https://fonts.googleapis.com/css?family=Nunito&display=swap');
+.searchForm {
+    margin-bottom: 6%;
+    width: 300px;
+    background: rgb(11, 10, 43);
+    /* background: linear-gradient(158deg, rgba(11, 10, 43, 1) 23%, rgba(55, 29, 73, 1) 62%); */
+    background: repeating-linear-gradient(135deg, hsla(44, 29%, 71%, 0.1) 0px, hsla(44, 29%, 71%, 0.1) 1px, transparent 1px, transparent 41px), repeating-linear-gradient(0deg, hsla(44, 29%, 71%, 0.1) 0px, hsla(44, 29%, 71%, 0.1) 1px, transparent 1px, transparent 41px), repeating-linear-gradient(67.5deg, hsla(44, 29%, 71%, 0.1) 0px, hsla(44, 29%, 71%, 0.1) 1px, transparent 1px, transparent 41px), repeating-linear-gradient(45deg, hsla(44, 29%, 71%, 0.1) 0px, hsla(44, 29%, 71%, 0.1) 1px, transparent 1px, transparent 41px), linear-gradient(90deg, hsl(288, 93%, 16%), hsl(288, 93%, 16%));
+    display: grid;
+    border-radius: 20px;
+    box-shadow: 5px 5px 15px rgba(0, 0, 0, 0.9);
+    text-align: center;
+    height: 500px;
+    grid-template-columns: 100%;
+    grid-template-rows: 30% 40% 20%;
+    grid-row-gap: 5%;
+    grid-template-areas: "top" "mid" "bot";
+    padding: 1%;
+    font-family: 'Nunito', sans-serif;
+    color: white;
+    text-transform: uppercase;
+    font-size: 1.5rem;
+    font-weight: 700;
+    transition: all 0.5s ease-in-out;
+}
+
+.searchBar {
+    grid-area: top;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    letter-spacing: 0.4rem;
+}
+
+.searchBar input {
+    width: 75%;
+    padding: 0.5rem;
+    border-radius: 5px;
+    border: none;
+    margin: 0 auto;
+}
+
+.searchOptions {
+    grid-area: mid;
+    font-size: 1.25rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-content: center;
+}
+
+.searchOptions div {
+    display: flex;
+    justify-content: space-between;
+    align-content: center;
+    margin: 0 5%;
+}
+
+.searchButton {
+    grid-area: bot;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.searchButton button {
+    border: none;
+    padding: 0.75rem 3rem;
+    border-radius: 20px;
+    background-color: indigo;
+    font-size: 1.5rem;
+    letter-spacing: 0.2rem;
+    color: white;
+    font-weight: 700;
+    text-transform: uppercase;
+    font-family: 'Nunito', sans-serif;
+    transition: all 0.5s ease-in-out;
+}
+
+.searchButton button:hover {
+    background-color: rgb(135, 36, 206);
+    cursor: pointer;
+}
+
+.searchButton button:active,
+.searchButton button:focus {
+    outline: 0;
+    text-decoration: none;
 }
