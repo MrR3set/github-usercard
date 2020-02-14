@@ -23,8 +23,7 @@
           Using that array, iterate over it, requesting data for each user, creating a new card for each
           user, and adding that card to the DOM.
 */
-
-const followersArray = [];
+let followersArray = [];
 
 /* Step 3: Create a function that accepts a single object as its only argument,
           Using DOM methods and properties, create a component that will return the following DOM element:
@@ -54,23 +53,19 @@ const followersArray = [];
 */
 const card = document.querySelectorAll(".cards")[0];
 
-let users = [
-    "MrR3set",
-    "tetondan",
-    "dustinmyers",
-    "justsml",
-    "luishrd",
-    "bigknell"
-]
-
-users.forEach(elem => {
-    axios.get(`https://api.github.com/users/${elem}`).then(response => {
-        card.append(makeCard(response.data));
-    }).catch(err => { console.log(`${err}`) });
-})
+//initial
+axios.get(`https://api.github.com/users/MrR3set`).then(response => {
+    card.append(makeCard(response.data));
+}).catch(err => { console.log(`${err}`) });
 
 
-
+// axios.get(`https://api.github.com/users/MrR3set/followers`).then(response => {
+//     response.data.forEach(elem => {
+//         axios.get(`https://api.github.com/users/${elem.login}`).then(response => {
+//             card.append(makeCard(response.data));
+//         }).catch(err => { console.log(`${err}`) });
+//     })
+// }).catch(err => { console.log(`${err}`) });
 
 
 
@@ -91,14 +86,13 @@ function makeCard(data) {
     cInfo.classList.add("card-info");
     cuserName.classList.add("username");
     cName.classList.add("name");
-
     //appending
     cProf.append(cpA);
     cInfo.append(cName, cuserName, cloc, cProf, cfollowers, cfollowing, cbio);
     card.append(cpPic, cInfo);
-
-    cpA.href = data.url;
-    cpA.innerHTML = data.url;
+    //Data assignation
+    cpA.href = data.html_url;
+    cpA.innerHTML = data.html_url;
     cpPic.src = data.avatar_url;
     cName.textContent = data.name;
     cuserName.textContent = data.login;
@@ -106,8 +100,5 @@ function makeCard(data) {
     cbio.textContent = data.bio;
     cfollowers.innerHTML = `Followers: ${data.followers}`;
     cfollowing.innerHTML = `Following: ${data.following}`;
-
-    //data assign
-    console.log(card);
     return card;
 }
