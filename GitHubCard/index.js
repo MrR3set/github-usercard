@@ -76,23 +76,15 @@ function searchUsr(gitUser) {
     if (document.getElementById("followersCheck").checked == true) {
         axios.get(`https://api.github.com/users/${gitUser}/followers`).then(response => {
             response.data.forEach(elem => {
-                axios.get(`https://api.github.com/users/${elem.login}`).then(response => {
-                    card.append(makeCard(response.data));
+                axios.get(`https://api.github.com/users/${elem.login}`).then(follower => {
+                    card.append(makeCard(follower.data));
                 }).catch(err => { console.log(`${err}`) });
             })
         }).catch(err => { console.log(`${err}`) });
 
     }
 
-
-
-
 }
-
-
-
-
-
 
 function makeCard(data) {
     const card = document.createElement("div");
@@ -106,11 +98,13 @@ function makeCard(data) {
     const cfollowers = document.createElement("p");
     const cfollowing = document.createElement("p");
     const cbio = document.createElement("p");
+    const graph = document.createElement("img");
     //Class assignation
     card.classList.add("card");
     cInfo.classList.add("card-info");
     cuserName.classList.add("username");
     cName.classList.add("name");
+    graph.classList.add("graph");
     //appending
     cProf.append(cpA);
     cInfo.append(cName, cuserName, cloc, cProf, cfollowers, cfollowing, cbio);
@@ -125,5 +119,11 @@ function makeCard(data) {
     cbio.textContent = data.bio;
     cfollowers.innerHTML = `Followers: ${data.followers}`;
     cfollowing.innerHTML = `Following: ${data.following}`;
+
+    if (document.getElementById("graphCheck").checked == true) {
+        graph.src = `http://ghchart.rshah.org/${data.login}`;
+        card.append(graph);
+    }
+
     return card;
 }
